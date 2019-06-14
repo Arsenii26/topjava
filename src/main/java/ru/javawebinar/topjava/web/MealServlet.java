@@ -42,7 +42,7 @@ public class MealServlet extends HttpServlet {
 //    //    response.sendRedirect("meals.jsp"); //make redirect to this page
 
         log.info("getAll");
-        request.setAttribute("meals", meals);
+        request.setAttribute("meals", MealsUtil.getFilteredWithExcess(meals, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000));
         request.getRequestDispatcher("/meals.jsp").forward(request, response);
     }
 }
