@@ -43,15 +43,6 @@
             </tr>
         </c:forEach>
     </table>
-
-    <%--<c:if test="${pageContext.request.getAttribute(\"MealTo\") != null}">--%>
-    <%--<table border=1>--%>
-        <%--<tr align="center"><td>Название</td><td>Каллорий</td><td>Время</td></tr>--%>
-            <%--<c:forEach items="${meals}" var="meal">--%>
-            <%--<jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealTo"/>--%>
-        <%--<tr bgcolor="${meal.excess ? "red" : "green"}"><td>${meal.description}</td><td>${meal.calories}</td><td>${meal.dateTime.toLocalDate()} ${meal.dateTime.toLocalTime()}</td></tr>--%>
-        <%--</c:forEach>--%>
-        <%--</c:if>--%>
 </section>
 </body>
 </html>
