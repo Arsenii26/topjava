@@ -9,8 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class InMemoryMealRepositoryImpl implements MealRepository {
-    private Map<Integer, Meal> repository = new ConcurrentHashMap<>();
-    private AtomicInteger counter = new AtomicInteger(0);
+    private Map<Integer, Meal> repository = new ConcurrentHashMap<>();  //thread save hash map
+    private AtomicInteger counter = new AtomicInteger(0); //thread save
 
     {
         MealsUtil.MEALS.forEach(this::save);
@@ -18,8 +18,8 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public Meal save(Meal meal) {
-        if (meal.isNew()) {
-            meal.setId(counter.incrementAndGet());
+        if (meal.isNew()) {   //checking that mean isn't null
+            meal.setId(counter.incrementAndGet()); //if exist than adding unique id
             repository.put(meal.getId(), meal);
             return meal;
         }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Meal {
-    private Integer id;
+    private Integer id; //unique id for user
 
     private final LocalDateTime dateTime;
 
