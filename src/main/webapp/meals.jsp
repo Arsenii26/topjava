@@ -24,6 +24,19 @@
     <%--adding the food--%>
     <a href="meals?action=create">Add Meal</a>
     <br><br>
+
+
+    <%--<c:forEach items="${meals}" var="meal">--%>
+        <form id="form1" action=" ${fn:formatDateTime(meal.dateTime)}">
+            <table>
+                <tr>
+                    <td><<input type="text" name="from"></td> <td>    </td> <td><<input type="text" name="to"></td>
+                </tr>
+                <button type="submit" form="form1" value="Submit">Submit</button>
+            </table>
+        </form>
+    <%--</c:forEach>--%>
+
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
@@ -35,7 +48,7 @@
         </tr>
         </thead>
         <c:forEach items="${meals}" var="meal">
-            <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealTo"/>
+            <jsp:useBean id="meal" type="ru.javawebinar.topjava.to.MealTo"/>
             <tr class="${meal.excess ? 'excess' : 'normal'}">
                 <td>
                         <%--${meal.dateTime.toLocalDate()} ${meal.dateTime.toLocalTime()}--%>

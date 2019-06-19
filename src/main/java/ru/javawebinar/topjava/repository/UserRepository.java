@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserRepository {
     User save(User user);
 
-    // false if not found
+    // false if not deleted
     boolean delete(int id);
 
     // null if not found
