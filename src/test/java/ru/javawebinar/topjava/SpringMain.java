@@ -17,7 +17,7 @@ import java.util.List;
 
 public class SpringMain {
     public static void main(String[] args) {
-        ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml"); //creates application context spring, which is described in xml, which is located in the classpath
+        ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "test.xml"); //creates application context spring, which is described in xml, which is located in the classpath
         System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
 
 //        UserRepository userRepository = (UserRepository) appCtx.getBean("inmemoryUserRepository"); //can take any bins from context

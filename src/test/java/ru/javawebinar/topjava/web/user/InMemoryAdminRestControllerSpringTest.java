@@ -16,8 +16,8 @@ import java.util.Collection;
 
 import static ru.javawebinar.topjava.UserTestData.ADMIN;
 
-//@ContextConfiguration("classpath:spring/spring-app.xml")
-@ContextConfiguration("classpath:test.xml")
+//register my new text.xml here
+@ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:test.xml"})
 @RunWith(SpringRunner.class)
 public class InMemoryAdminRestControllerSpringTest {
 
