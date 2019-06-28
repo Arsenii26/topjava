@@ -11,6 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -22,6 +23,8 @@ import static org.junit.Assert.*;
 //import static ru.javawebinar.topjava.UserTestData.ADMIN;
 //import static ru.javawebinar.topjava.UserTestData.USER;
 import static ru.javawebinar.topjava.MealsTestData.*;
+import static ru.javawebinar.topjava.UserTestData.USER_ID;
+
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
         "classpath:spring/spring-db.xml"
@@ -41,53 +44,50 @@ public class MealServiceTest {
 
     @Test(expected = NotFoundException.class)
     public void get() {
-        Meal meal = mealService.get(meal2.getId(), 10);
-        assertMatch(meal, meal2);
+        Meal meal = mealService.get(MEAL1.getId(), 10);
+        assertMatch(meal, MEAL1);
 
     }
 
     @Test(expected = NotFoundException.class)
     public void delete() {
-        mealService.delete(meal2.getId(), 10);
+        mealService.delete(MEAL1.getId(), 10);
     }
 
     @Test(expected = NotFoundException.class)
     public void update() {
-        mealService.update(meal2, 10);
+        mealService.update(MEAL1, 10);
     }
 
 
 
     @Test
     public void getBetweenDates() {
-        LocalDate localTime1 = LocalDate.of(2012, 03, 11);
-        LocalDate localTime2 = LocalDate.of(2014, 12, 25);
+        LocalDate localTime1 = LocalDate.of(2011, 03, 11);
+        LocalDate localTime2 = LocalDate.of(2019, 12, 25);
 
-        mealService.getBetweenDates(localTime1, localTime2, meal2.getId());
+        mealService.getBetweenDates(localTime1, localTime2, MEAL1.getId());
     }
 
     @Test
     public void getBetweenDateTimes() {
-        LocalDateTime aDateTime1 = LocalDateTime.of(2012, Month.MARCH, 14, 12, 43, 45);
-        LocalDateTime aDateTime2 = LocalDateTime.of(2014, Month.MARCH, 14, 12, 43, 45);
-        mealService.getBetweenDateTimes(aDateTime1, aDateTime2, meal2.getId());
+        LocalDateTime aDateTime1 = LocalDateTime.of(2011, Month.MARCH, 14, 12, 43, 45);
+        LocalDateTime aDateTime2 = LocalDateTime.of(2019, Month.MARCH, 14, 12, 43, 45);
+        mealService.getBetweenDateTimes(aDateTime1, aDateTime2, MEAL1.getId());
     }
 
     @Test
     public void getAll() {
-        mealService.getAll(meal2.getId());
+        assertMatch(mealService.getAll(USER_ID), MEALS);
     }
 
 
     @Test
     public void create() {
-        LocalDateTime a = LocalDateTime.of(2017, 2, 13, 15, 56);
-        Meal meal = new Meal(meal2.getId(), a, "kk", 1000);
-        Meal mealTest = mealService.create(meal, meal2.getId());
-        meal.setId(mealTest.getId());
-
-
-
-        assertMatch(mealService.getAll(meal2.getId()));
+        Meal newMeal = getCreated();
+        Meal created = mealService.create(newMeal, USER_ID);
+        newMeal.setId(created.getId());
+        assertMatch(newMeal, created);
+        assertMatch(mealService.getAll(USER_ID), newMeal, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
     }
 }
