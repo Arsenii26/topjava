@@ -133,8 +133,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--jstl added for servlets-->
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
