@@ -11,13 +11,13 @@ import ru.javawebinar.topjava.model.User;
 @Transactional(readOnly = true)
 public interface CrudUserRepository extends JpaRepository<User, Integer> {
     @Transactional
-    @Modifying
+    @Modifying //clear and make new one request
     @Query("DELETE FROM User u WHERE u.id=:id")
     int delete(@Param("id") int id);
 
-    User getByEmail(String email);
+    User getByEmail(String email); //auto by spring
 
-    @EntityGraph(attributePaths = {"meals", "roles"})
+    @EntityGraph(attributePaths = {"meals", "roles"}) //???
     @Query("SELECT u FROM User u WHERE u.id=?1")
     User getWithMeals(int id);
 }

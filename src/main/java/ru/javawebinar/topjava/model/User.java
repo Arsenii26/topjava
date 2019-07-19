@@ -15,11 +15,11 @@ import static ru.javawebinar.topjava.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
 
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
-        @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
+        @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"), //connect user_roles table
         @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.name, u.email"),
 })
 @Entity
-@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")}) //unique email
 public class User extends AbstractNamedEntity {
 
     public static final String DELETE = "User.delete";
@@ -27,7 +27,7 @@ public class User extends AbstractNamedEntity {
     public static final String ALL_SORTED = "User.getAllSorted";
 
     @Column(name = "email", nullable = false, unique = true)
-    @Email
+    @Email //for better performance
     @NotBlank
     @Size(max = 100)
     private String email;
@@ -42,22 +42,22 @@ public class User extends AbstractNamedEntity {
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
-    private Date registered = new Date();
+    private Date registered = new Date(); //gets current date for user
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))  //take the table
+    @Column(name = "role") //take value from other table
+    @ElementCollection(fetch = FetchType.EAGER) //always take this Set
 //    @Fetch(FetchMode.SUBSELECT)
     @BatchSize(size = 200)
     private Set<Role> roles;
 
     @Column(name = "calories_per_day", nullable = false, columnDefinition = "int default 2000")
     @Range(min = 10, max = 10000)
-    private int caloriesPerDay = DEFAULT_CALORIES_PER_DAY;
+    private int caloriesPerDay = DEFAULT_CALORIES_PER_DAY; //if more 2000 then it is over limit for that day
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    @OrderBy("dateTime DESC")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user") //one user has many meals
+    @OrderBy("dateTime DESC") //sort from old to new
     protected List<Meal> meals;
 
     public User() {

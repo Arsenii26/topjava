@@ -8,7 +8,7 @@ import java.util.List;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 
 @Controller
-public class AdminRestController extends AbstractUserController {
+public class AdminRestController extends AbstractUserController { //real controller for admin with gets AbstractUserController methods
 
     public List<User> getAll() {
         log.info("getAll");

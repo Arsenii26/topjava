@@ -19,6 +19,8 @@ public interface UserRepository {
 
     List<User> getAll();
 
+    //Default методы так же можно переопределять как и обычные методы.
+    // метод с реализацией в интерфейсах
     default User getWithMeals(int id) {
         throw new UnsupportedOperationException();
     }

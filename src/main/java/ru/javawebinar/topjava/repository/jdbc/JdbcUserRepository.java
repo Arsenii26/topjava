@@ -16,6 +16,10 @@ import java.util.List;
 @Repository
 public class JdbcUserRepository implements UserRepository {
 
+    //RowMapper implementation that converts a row into a new instance
+    // of the specified mapped target class.
+    // The mapped target class must be a top-level class and it
+    // must have a default or no-arg constructor.
     private static final BeanPropertyRowMapper<User> ROW_MAPPER = BeanPropertyRowMapper.newInstance(User.class);
 
     private final JdbcTemplate jdbcTemplate;
@@ -36,6 +40,8 @@ public class JdbcUserRepository implements UserRepository {
 
     @Override
     public User save(User user) {
+        //SqlParameterSource implementation that obtains parameter values from bean properties of a
+        // given JavaBean object. The names of the bean properties have to match the parameter names.
         BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(user);
 
         if (user.isNew()) {

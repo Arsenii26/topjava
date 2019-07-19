@@ -13,17 +13,17 @@ import java.util.List;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFound;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
-@Service
+@Service // marks a java class as a bean so the component-scanning mechanism of spring can pick it up and pull it into the application context.
 public class UserService {
 
     private final UserRepository repository;
 
-    @Autowired
+    @Autowired //при создании контекста Spring автоматически определит bean
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
 
-    @CacheEvict(value = "users", allEntries = true)
+    @CacheEvict(value = "users", allEntries = true) //Очистка кеша тоже может быть выполнена при помощи аннотации — @CacheEvict
     public User create(User user) {
         Assert.notNull(user, "user must not be null");
         return repository.save(user);
@@ -43,7 +43,7 @@ public class UserService {
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 
-    @Cacheable("users")
+    @Cacheable("users") //makes cache fore 'users' table
     public List<User> getAll() {
         return repository.getAll();
     }

@@ -10,9 +10,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-@SuppressWarnings("JpaQlInspection")
-@NamedQueries({
-        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC"),
+@SuppressWarnings("JpaQlInspection") //@SuppressWarnings will tell the IDE to stop complaining about something.
+@NamedQueries({ // именованные запросы — это такие запросы, которые вызываются по имени.
+        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC"), //The DESC command is used to sort the data returned in descending order.
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:userId"),
         @NamedQuery(name = Meal.GET_BETWEEN, query = "SELECT m FROM Meal m " +
                 "WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC"),
@@ -20,27 +20,27 @@ import java.time.LocalTime;
 //                "m.description=:desc where m.id=:id and m.user.id=:userId")
 })
 @Entity
-@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")})
+@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")}) //link for the table in DB
 public class Meal extends AbstractBaseEntity {
     public static final String ALL_SORTED = "Meal.getAll";
     public static final String DELETE = "Meal.delete";
     public static final String GET_BETWEEN = "Meal.getBetween";
 
-    @Column(name = "date_time", nullable = false)
+    @Column(name = "date_time", nullable = false) //column in meals table must has exactly the same name
     @NotNull
     private LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)
-    @NotBlank
+    @NotBlank //user should enter something
     @Size(min = 2, max = 120)
     private String description;
 
     @Column(name = "calories", nullable = false)
-    @Range(min = 10, max = 5000)
+    @Range(min = 10, max = 5000) //range for number values
     private int calories;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY) //one user  for many meals with LAZY type
+    @JoinColumn(name = "user_id", nullable = false) //connect table users for meals table for key user_id
     @NotNull
     private User user;
 

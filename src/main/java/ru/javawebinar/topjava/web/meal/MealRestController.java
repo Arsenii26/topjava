@@ -19,7 +19,7 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 
 @Controller
 public class MealRestController {
-    private static final Logger log = LoggerFactory.getLogger(MealRestController.class);
+    private static final Logger log = LoggerFactory.getLogger(MealRestController.class); //will create logger for meal actions
 
     private final MealService service;
 
@@ -29,7 +29,7 @@ public class MealRestController {
     }
 
     public Meal get(int id) {
-        int userId = SecurityUtil.authUserId();
+        int userId = SecurityUtil.authUserId(); //SecurityUtil its my class
         log.info("get meal {} for user {}", id, userId);
         return service.get(id, userId);
     }

@@ -21,6 +21,10 @@ public interface MealRepository {
     // ORDERED dateTime desc
     List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 
+
+    //default: Использовать их можно только после получения экземпляра
+    //нельзя наследовать одновременно несколько default методов
+    //// метод с реализацией в интерфейсах
     default Meal getWithUser(int id, int userId) {
         throw new UnsupportedOperationException();
     }

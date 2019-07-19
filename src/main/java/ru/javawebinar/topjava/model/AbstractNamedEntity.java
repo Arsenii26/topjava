@@ -9,9 +9,9 @@ import javax.validation.constraints.Size;
 @MappedSuperclass
 public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 
-    @NotBlank
+    @NotBlank //always contains smth
     @Size(min = 2, max = 100)
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false) //should not be null and in table will be 'name'
     protected String name;
 
     protected AbstractNamedEntity() {

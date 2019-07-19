@@ -12,6 +12,9 @@ import java.util.List;
 @Repository
 public class DataJpaMealRepository implements MealRepository {
 
+    //Autowired при создании контекста Spring автоматически определит, что для создания
+    // ... требуется bean типа ... (или наследник),
+    // найдёт его у себя, в рамках подставит зависимость
     @Autowired
     private CrudMealRepository crudMealRepository;
 

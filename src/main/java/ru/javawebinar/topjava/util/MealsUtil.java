@@ -29,16 +29,19 @@ public class MealsUtil {
         return getFilteredWithExcess(meals, caloriesPerDay, meal -> Util.isBetween(meal.getTime(), startTime, endTime));
     }
 
+
+    //Функциональный интерфейс Predicate<T> проверяет
+    // соблюдение некоторого условия. Если оно соблюдается, то возвращается значение true.
     private static List<MealTo> getFilteredWithExcess(Collection<Meal> meals, int caloriesPerDay, Predicate<Meal> filter) {
         Map<LocalDate, Integer> caloriesSumByDate = meals.stream()
                 .collect(
-                        Collectors.groupingBy(Meal::getDate, Collectors.summingInt(Meal::getCalories))
+                        Collectors.groupingBy(Meal::getDate, Collectors.summingInt(Meal::getCalories)) //sums all calories per day
 //                      Collectors.toMap(Meal::getDate, Meal::getCalories, Integer::sum)
                 );
 
         return meals.stream()
                 .filter(filter)
-                .map(meal -> createWithExcess(meal, caloriesSumByDate.get(meal.getDate()) > caloriesPerDay))
+                .map(meal -> createWithExcess(meal, caloriesSumByDate.get(meal.getDate()) > caloriesPerDay)) //if user calories > default
                 .collect(toList());
     }
 

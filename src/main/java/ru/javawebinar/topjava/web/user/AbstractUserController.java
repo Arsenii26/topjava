@@ -12,12 +12,12 @@ import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 
 public abstract class AbstractUserController {
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    protected final Logger log = LoggerFactory.getLogger(getClass()); //will log user actions
 
     @Autowired
     protected UserService service;
 
-    public User get(int id) {
+    public User get(int id) { //when we not change something but just take this, we return value
         log.info("get {}", id);
         return service.get(id);
     }
@@ -29,7 +29,7 @@ public abstract class AbstractUserController {
 
     public void update(User user, int id) {
         log.info("update {} with id={}", user, id);
-        assureIdConsistent(user, id);
+        assureIdConsistent(user, id); //from ValidationUtil class
         service.update(user);
     }
 }

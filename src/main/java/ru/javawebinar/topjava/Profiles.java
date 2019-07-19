@@ -1,6 +1,6 @@
 package ru.javawebinar.topjava;
 
-public class Profiles {
+public class Profiles { //for switching profiles
     public static final String
             JDBC = "jdbc",
             JPA = "jpa",

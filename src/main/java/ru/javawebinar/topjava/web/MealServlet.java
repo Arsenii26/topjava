@@ -23,21 +23,23 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
 public class MealServlet extends HttpServlet {
 
+    //Standalone XML application context, taking the context definition files from the class path,
+    // interpreting plain paths as class path resource names that include the package path (e.g. "mypackage/myresource.txt")
     private ClassPathXmlApplicationContext springContext;
     private MealRestController mealController;
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) throws ServletException { //connect spring to the servlet
         super.init(config);
         springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"}, false);
 //       springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
         springContext.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
-        springContext.refresh();
-        mealController = springContext.getBean(MealRestController.class);
+        springContext.refresh(); //don't forget refresh
+        mealController = springContext.getBean(MealRestController.class); //put bean to controller
     }
 
     @Override
-    public void destroy() {
+    public void destroy() { //closes session
         springContext.close();
         super.destroy();
     }
@@ -46,14 +48,14 @@ public class MealServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Meal meal = new Meal(
-                LocalDateTime.parse(request.getParameter("dateTime")),
-                request.getParameter("description"),
-                Integer.parseInt(request.getParameter("calories")));
+                LocalDateTime.parse(request.getParameter("dateTime")), //getting value
+                request.getParameter("description"), //getting value
+                Integer.parseInt(request.getParameter("calories"))); //getting value
 
         if (StringUtils.isEmpty(request.getParameter("id"))) {
-            mealController.create(meal);
+            mealController.create(meal); //creates new id
         } else {
-            mealController.update(meal, getId(request));
+            mealController.update(meal, getId(request)); //use existing id
         }
         response.sendRedirect("meals");
     }

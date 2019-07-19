@@ -10,9 +10,10 @@ import java.util.List;
 
 @Repository
 public class DataJpaUserRepository implements UserRepository {
+    //ASC from new to old, DESC from old to new sorting
     private static final Sort SORT_NAME_EMAIL = new Sort(Sort.Direction.ASC, "name", "email");
 
-    @Autowired
+    @Autowired //Autowired при создании контекста Spring автоматически определит
     private CrudUserRepository crudRepository;
 
     @Override

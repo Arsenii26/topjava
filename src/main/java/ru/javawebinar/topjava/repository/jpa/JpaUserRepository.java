@@ -23,7 +23,12 @@ public class JpaUserRepository implements UserRepository {
     }
 */
 
+
+// Наличие persistence context означает, что для каждой
+// существующей на данный момент сущности существует EntityManager, который следит за её состоянием.
+    //it's method will change this condition
     @PersistenceContext
+    //Один или несколько EntityManager образуют или могут образовать persistence context.
     private EntityManager em;
 
     @Override

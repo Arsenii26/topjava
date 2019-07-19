@@ -15,16 +15,17 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.adjustEndDateTime;
 import static ru.javawebinar.topjava.util.DateTimeUtil.adjustStartDateTime;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
-@Service
+@Service // marks a java class as a bean so the component-scanning mechanism of spring can pick it up and pull it into the application context.
 public class MealService {
 
-    private final MealRepository repository;
+    private final MealRepository repository; //interface
 
-    @Autowired
+    @Autowired //при создании контекста Spring автоматически определит bean
     public MealService(MealRepository repository) {
         this.repository = repository;
     }
 
+    //checkNotFoundWithId from ValidationUtil class
     public Meal get(int id, int userId) {
         return checkNotFoundWithId(repository.get(id, userId), id);
     }
@@ -38,7 +39,7 @@ public class MealService {
     }
 
     private List<Meal> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
-        Assert.notNull(startDateTime, "startDateTime must not be null");
+        Assert.notNull(startDateTime, "startDateTime must not be null"); //Метод AssertNotNull() означает, что "переданный параметр не должен быть null "
         Assert.notNull(endDateTime, "endDateTime  must not be null");
         return repository.getBetween(startDateTime, endDateTime, userId);
     }

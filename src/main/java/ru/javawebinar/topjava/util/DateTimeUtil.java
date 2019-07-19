@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateTimeUtil {
+    //format date in particular format
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     // DataBase doesn't support LocalDate.MIN/MAX
@@ -34,6 +35,8 @@ public class DateTimeUtil {
         return ldt == null ? "" : ldt.format(DATE_TIME_FORMATTER);
     }
 
+    //StringUtils - это проект Apache Commons. Вам необходимо загрузить и добавить библиотеку
+    //@Nullable: It makes it clear that the method accepts null values
     public static LocalDate parseLocalDate(@Nullable String str) {
         return StringUtils.isEmpty(str) ? null : LocalDate.parse(str);
     }

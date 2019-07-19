@@ -15,11 +15,15 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class JpaMealRepository implements MealRepository {
 
+    //A persistence context handles
+    // a set of entities which hold data to be persisted in some persistence store (e.g. a database).
     @PersistenceContext
+    //The EntityManager API is used to create and remove persistent entity instances,
+    // to find entities by their primary key, and to query over entities.
     private EntityManager em;
 
     @Override
-    @Transactional
+    @Transactional // all operations with db will be transactional
     public Meal save(Meal meal, int userId) {
         if (!meal.isNew() && get(meal.getId(), userId) == null) {
             return null;
@@ -29,7 +33,7 @@ public class JpaMealRepository implements MealRepository {
             em.persist(meal);
             return meal;
         } else {
-            return em.merge(meal);
+            return em.merge(meal); //add for existing meal for that day
         }
     }
 
@@ -50,7 +54,7 @@ public class JpaMealRepository implements MealRepository {
 
     @Override
     public List<Meal> getAll(int userId) {
-        return em.createNamedQuery(Meal.ALL_SORTED, Meal.class)
+        return em.createNamedQuery(Meal.ALL_SORTED, Meal.class) //sort before
                 .setParameter("userId", userId)
                 .getResultList();
     }

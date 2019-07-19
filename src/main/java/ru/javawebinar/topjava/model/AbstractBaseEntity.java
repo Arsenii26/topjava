@@ -9,7 +9,7 @@ import javax.persistence.*;
 // http://stackoverflow.com/questions/594597/hibernate-annotations-which-is-better-field-or-property-access
 @Access(AccessType.FIELD)
 public abstract class AbstractBaseEntity implements Persistable<Integer> {
-    public static final int START_SEQ = 100000;
+    public static final int START_SEQ = 100000; //this the first id
 
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
@@ -46,7 +46,7 @@ public abstract class AbstractBaseEntity implements Persistable<Integer> {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o) { //comparing that it's valid
         if (this == o) {
             return true;
         }
@@ -58,7 +58,8 @@ public abstract class AbstractBaseEntity implements Persistable<Integer> {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode() { //basic hashCode generation
         return id == null ? 0 : id;
+
     }
 }
