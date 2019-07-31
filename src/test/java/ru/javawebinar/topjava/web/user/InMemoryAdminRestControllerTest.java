@@ -1,6 +1,9 @@
 package ru.javawebinar.topjava.web.user;
 
-import org.junit.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.javawebinar.topjava.UserTestData;
@@ -11,14 +14,16 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.javawebinar.topjava.UserTestData.ADMIN;
 
-public class InMemoryAdminRestControllerTest {
+class InMemoryAdminRestControllerTest {
     private static ConfigurableApplicationContext appCtx;
     private static AdminRestController controller;
 
-    @BeforeClass
-    public static void beforeClass() {
+    @BeforeAll
+    static void beforeClass() {
         appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/inmemory.xml");
         System.out.println("\n" + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
         controller = appCtx.getBean(AdminRestController.class);
@@ -31,23 +36,24 @@ public class InMemoryAdminRestControllerTest {
 //        appCtx.close();
     }
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         // re-initialize
         InMemoryUserRepository repository = appCtx.getBean(InMemoryUserRepository.class);
         repository.init();
     }
 
     @Test
-    public void delete() throws Exception {
+    void delete() throws Exception {
         controller.delete(UserTestData.USER_ID);
         Collection<User> users = controller.getAll();
-        Assert.assertEquals(1, users.size());
-        Assert.assertEquals(ADMIN, users.iterator().next());
+        assertEquals(1, users.size());
+        assertEquals(ADMIN, users.iterator().next());
     }
 
-    @Test(expected = NotFoundException.class)
-    public void deleteNotFound() throws Exception {
-        controller.delete(10);
+    @Test
+    void deleteNotFound() throws Exception {
+        assertThrows(NotFoundException.class, () ->
+                controller.delete(10));
     }
 }
