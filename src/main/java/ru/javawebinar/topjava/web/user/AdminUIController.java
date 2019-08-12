@@ -21,20 +21,30 @@ public class AdminUIController extends AbstractUserController {
     @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable int id) {
         super.delete(id);
     }
 
     @PostMapping
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void createOrUpdate(@RequestParam("id") Integer id,
-                               @RequestParam("name") String name,
-                               @RequestParam("email") String email,
-                               @RequestParam("password") String password) {
-
-        User user = new User(id, name, email, password, Role.ROLE_USER);
-        if (user.isNew()) {
-            super.create(user);
+    public ResponseEntity<String> createOrUpdate(@Valid UserTo userTo, BindingResult result) {
+        if (result.hasErrors()) {
+            StringJoiner joiner = new StringJoiner("<br>");
+            result.getFieldErrors().forEach(
+                    fe -> {
+                        String msg = fe.getDefaultMessage();
+                        if (msg != null) {
+                            if (!msg.startsWith(fe.getField())) {
+                                msg = fe.getField() + ' ' + msg;
+                            }
+                            joiner.add(msg);
+                        }
+                    });
+            return ResponseEntity.unprocessableEntity().body(joiner.toString());
+        }
+        if (userTo.isNew()) {
+            super.create(UserUtil.createNewFromTo(userTo));
+        } else {
+            super.update(userTo, userTo.id());
         }
     }
 }
