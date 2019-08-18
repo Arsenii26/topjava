@@ -33,6 +33,7 @@ public class MealService {
         checkNotFoundWithId(repository.delete(id, userId), id);
     }
 
+    //@Nullable  It makes it clear that the method accepts null values, and that if you override the method, you should also accept null values.
     public List<Meal> getBetweenDates(@Nullable LocalDate startDate, @Nullable LocalDate endDate, int userId) {
         return getBetweenDateTimes(adjustStartDateTime(startDate), adjustEndDateTime(endDate), userId);
     }

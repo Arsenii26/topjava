@@ -10,9 +10,17 @@ import ru.javawebinar.topjava.model.Meal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+//will be called on the JDBC Connection, which is also a hint to the underlying database.
+// If your database supports it (most likely it does),
+// this has basically the same effect as FlushMode.NEVER, but it's stronger since you cannot even flush manually.
+
+//if you call a method from within a readOnly transaction that requires read/write, again, the first one will be suspended,
+// since it cannot be flushed/committed, and the second method needs that.
 @Transactional(readOnly = true)
 public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
 
+    // is used to enhance the @Query annotation to execute not only SELECT queries but also INSERT, UPDATE, DELETE, and even DDL queries.
     @Modifying
     @Transactional
     @Query("DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:userId")

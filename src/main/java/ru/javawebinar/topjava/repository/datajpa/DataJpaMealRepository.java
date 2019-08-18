@@ -9,6 +9,8 @@ import ru.javawebinar.topjava.repository.MealRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+//originally defined by Domain-Driven Design (Evans, 2003)
+// as "a mechanism for encapsulating storage, retrieval, and search behavior which emulates a collection of objects".
 @Repository
 public class DataJpaMealRepository implements MealRepository {
 

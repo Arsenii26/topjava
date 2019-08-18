@@ -24,8 +24,13 @@ public class JpaUserRepository implements UserRepository {
     }
 */
 
+    //set of entities which hold data to be persisted in some persistence store (e.g. a database). In particular, the context is aware of the
+    // different states an entity can have (e.g. managed, detached) in relation to both the context and the underlying persistence sto
     @PersistenceContext
+    // The EntityManager API is used to create and remove persistent entity instances,
+    // to find entities by their primary key, and to query over entities.
     private EntityManager em;
+
 
     @Override
     @Transactional

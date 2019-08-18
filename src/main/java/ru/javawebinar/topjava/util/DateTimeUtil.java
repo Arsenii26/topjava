@@ -10,6 +10,13 @@ import java.time.format.DateTimeFormatter;
 
 public class DateTimeUtil {
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
+
+    //Formatter for printing and parsing date-time objects.
+    //This class provides the main application entry point for printing and parsing and provides common implementations of DateTimeFormatter:
+    //
+    //Using predefined constants, such as ISO_LOCAL_DATE
+    //Using pattern letters, such as uuuu-MMM-dd
+    //Using localized styles, such as long or medium
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
 
     // DataBase doesn't support LocalDate.MIN/MAX

@@ -1,7 +1,7 @@
 package ru.javawebinar.topjava.model;
 
 import org.springframework.security.core.GrantedAuthority;
-
+//security spring by GrantedAuthority
 public enum Role implements GrantedAuthority {
     ROLE_USER,
     ROLE_ADMIN;

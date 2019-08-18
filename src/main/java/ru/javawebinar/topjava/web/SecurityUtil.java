@@ -16,6 +16,10 @@ public class SecurityUtil {
         if (auth == null) {
             return null;
         }
+
+        //The API of the Authentication class is very open so that the framework remains as flexible as possible.
+        //
+        // Because of this, the Spring Security principal can only be retrieved as an Object and needs to be cast to the correct UserDetails instance:
         Object principal = auth.getPrincipal();
         return (principal instanceof AuthorizedUser) ? (AuthorizedUser) principal : null;
     }

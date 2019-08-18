@@ -13,6 +13,8 @@ import static ru.javawebinar.topjava.web.json.JacksonObjectMapper.getMapper;
 public class JsonUtil {
 
     public static <T> List<T> readValues(String json, Class<T> clazz) {
+
+        //getMapper() in JacksonObjectMapper
         ObjectReader reader = getMapper().readerFor(clazz);
         try {
             return reader.<T>readValues(json).readAll();

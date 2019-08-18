@@ -27,6 +27,9 @@ public class MealsUtil {
         return getFilteredWithExcess(meals, caloriesPerDay, meal -> Util.isBetween(meal.getTime(), startTime, endTime));
     }
 
+    //Predicate
+    //Represents a predicate (boolean-valued function) of one argument.
+    //This is a functional interface whose functional method is test(Object).
     private static List<MealTo> getFilteredWithExcess(Collection<Meal> meals, int caloriesPerDay, Predicate<Meal> filter) {
         Map<LocalDate, Integer> caloriesSumByDate = meals.stream()
                 .collect(

@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.to;
 
 import ru.javawebinar.topjava.HasId;
 
+//for Meal and User == abstract
 public abstract class BaseTo implements HasId {
     protected Integer id;
 

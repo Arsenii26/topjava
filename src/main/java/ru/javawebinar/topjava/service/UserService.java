@@ -28,6 +28,8 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
+
+    //Service interface for encoding passwords. The preferred implementation is BCryptPasswordEncoder.
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -37,6 +39,8 @@ public class UserService implements UserDetailsService {
     }
 
 
+    //is used on methods or on class level to perform cache eviction. Such methods act as triggers for removing data from the cache.
+    //Just like @Cacheable, the annotation @CacheEvict provides similar configuration elements to declare the eviction.
     @CacheEvict(value = "users", allEntries = true)
     public User create(User user) {
         Assert.notNull(user, "user must not be null");
@@ -57,6 +61,9 @@ public class UserService implements UserDetailsService {
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 
+    //Annotation indicating that the result of invoking a method (or all methods in a class) can be cached.
+    //Each time an advised method is invoked, caching behavior will be applied,
+    // checking whether the method has been already invoked for the given arguments.
     @Cacheable("users")
     public List<User> getAll() {
         return repository.getAll();

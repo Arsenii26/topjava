@@ -13,6 +13,9 @@ public class RootController {
     }
 
 //    @Secured("ROLE_ADMIN")
+
+    //The @PreAuthorize annotation checks the given expression before entering the method, whereas,
+// the @PostAuthorize annotation verifies it after the execution of the method and could alter the result.
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/users")
     public String getUsers() {

@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * This interceptor adds userTo to the model of every requests
  */
+
+//And a quick note – the main difference between HandlerInterceptor and HandlerInterceptorAdapter
+// is that in the first one we need to override all three methods: preHandle(),
+// postHandle() and afterCompletion(), whereas in the second we may implement only required methods.
 public class ModelInterceptor extends HandlerInterceptorAdapter {
 
     @Override

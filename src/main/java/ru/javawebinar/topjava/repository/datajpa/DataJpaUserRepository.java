@@ -10,6 +10,10 @@ import java.util.List;
 
 @Repository
 public class DataJpaUserRepository implements UserRepository {
+    //Although ASC and DESC modifiers in the order by clause can prevent a pipelined execution,
+    // most databases offer a simple way to change the index order so an index becomes usable for a pipelined order by.
+
+    //от старого к новому
     private static final Sort SORT_NAME_EMAIL = new Sort(Sort.Direction.ASC, "name", "email");
 
     @Autowired

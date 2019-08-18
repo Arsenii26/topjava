@@ -39,6 +39,7 @@ public class ProfileRestController extends AbstractUserController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
+    //APPLICATION_JSON_VALUE A String equivalent of APPLICATION_JSON.
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody UserTo userTo) {

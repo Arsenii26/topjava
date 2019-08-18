@@ -44,6 +44,8 @@ public class JdbcUserRepository implements UserRepository {
     public User save(User user) {
         ValidationUtil.validate(user);
 
+        //SqlParameterSource implementation that obtains parameter values from bean properties of a given JavaBean object.
+        // The names of the bean properties have to match the parameter names.
         BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(user);
 
         if (user.isNew()) {

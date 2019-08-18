@@ -5,7 +5,8 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-
+//can be mapped in the same way as an entity except that the
+// mappings will apply only to its subclasses since no table exists for the mapped superclass itself.
 @MappedSuperclass
 public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 

@@ -24,6 +24,14 @@ public class AdminUIController extends AbstractUserController {
 
     @Override
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+
+    //@RequestParam annotation used for accessing the query parameter values from the request. Look at the following request URL:
+    //
+    //http://localhost:8080/springmvc/hello/101?param1=10&param2=20
+
+    //@PathVariable identifies the pattern that is used in the URI for the incoming request. Let’s look at the below request URL:
+    //
+    //http://localhost:8080/springmvc/hello/101?param1=10&param2=20
     public User get(@PathVariable int id) {
         return super.get(id);
     }

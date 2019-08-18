@@ -10,7 +10,12 @@ import ru.javawebinar.topjava.model.User;
 import java.net.URI;
 import java.util.List;
 
+//@RestController
+//simplify the creation of RESTful web services. It’s a convenience annotation that combines @Controller and @ResponseBody –
+// which eliminates the need to annotate every request handling method of the controller class with the @ResponseBody annotation.
 @RestController
+//@RequestMapping is one of the most common annotation used in Spring Web applications.
+// This annotation maps HTTP requests to handler methods of MVC and REST controllers.
 @RequestMapping(value = AdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminRestController extends AbstractUserController {
 
@@ -23,6 +28,8 @@ public class AdminRestController extends AbstractUserController {
     }
 
     @Override
+    //@GetMapping is used to handle GET type of request method,
+    //@PostMapping is used to handle POST type of request method, etc.
     @GetMapping("/{id}")
     public User get(@PathVariable int id) {
         return super.get(id);

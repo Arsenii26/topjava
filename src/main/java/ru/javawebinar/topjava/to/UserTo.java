@@ -9,7 +9,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
+//many threads
 public class UserTo extends BaseTo implements Serializable {
+    //the serialVersionUID is a unique identifier for Serializable classes.
+    // This is used during the deserialization of an object, to ensure that a loaded class is compatible with the serialized object.
+    // If no matching class is found, an InvalidClassException is thrown.
     private static final long serialVersionUID = 1L;
 
     @NotBlank

@@ -21,12 +21,20 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class JdbcMealRepository implements MealRepository {
 
+    //An interface used by JdbcTemplate for mapping rows of a ResultSet on a per-row basis.
+    // Implementations of this interface perform the actual work of mapping each row to a result object,
+    // but don't need to worry about exception handling. SQLExceptions will be caught and handled by the calling JdbcTemplate.
     private static final RowMapper<Meal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Meal.class);
 
+    //It simplifies the use of JDBC and helps to avoid common errors.
     private final JdbcTemplate jdbcTemplate;
 
+    //Template class with a basic set of JDBC operations, allowing the use of named parameters rather than traditional '?' placeholders.
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    //A SimpleJdbcInsert is a multi-threaded, reusable object providing easy insert capabilities for a table.
+    // It provides meta-data processing to simplify the code needed to construct a basic insert statement.
+    // All you need to provide is the name of the table and a Map containing the column names and the column values.
     private final SimpleJdbcInsert insertMeal;
 
     @Autowired
@@ -42,6 +50,7 @@ public class JdbcMealRepository implements MealRepository {
     @Override
     @Transactional
     public Meal save(Meal meal, int userId) {
+        //Utility class offering convenient methods for invoking a Validator and for rejecting empty fields.
         ValidationUtil.validate(meal);
 
         MapSqlParameterSource map = new MapSqlParameterSource()

@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava;
 
+//for switching profiles
 public class Profiles {
     public static final String
             JDBC = "jdbc",

@@ -11,7 +11,7 @@ public class MealTo extends BaseTo {
 
     private int calories;
 
-    private boolean excess;
+    private boolean excess; //more or less 2000?
 
     public MealTo() {
     }

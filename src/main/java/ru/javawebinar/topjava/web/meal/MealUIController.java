@@ -15,6 +15,8 @@ import java.time.LocalTime;
 import java.util.List;
 
 @RestController
+//@RequestMapping is one of the most common annotation used in Spring Web applications.
+// This annotation maps HTTP requests to handler methods of MVC and REST controllers.
 @RequestMapping("/ajax/profile/meals")
 public class MealUIController extends AbstractMealController {
 

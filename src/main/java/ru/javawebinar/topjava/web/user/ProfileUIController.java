@@ -12,6 +12,7 @@ import ru.javawebinar.topjava.web.SecurityUtil;
 
 import javax.validation.Valid;
 
+//allows user to  register
 @Controller
 @RequestMapping("/profile")
 public class ProfileUIController extends AbstractUserController {

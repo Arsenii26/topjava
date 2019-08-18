@@ -10,6 +10,7 @@ import javax.validation.*;
 import java.util.Set;
 import java.util.StringJoiner;
 
+//validate or throws exceptions
 public class ValidationUtil {
 
     private ValidationUtil() {
@@ -61,6 +62,8 @@ public class ValidationUtil {
     }
 
     public static ResponseEntity<String> getErrorResponse(BindingResult result) {
+        //StringJoiner is used to construct a sequence of characters separated
+        // by a delimiter and optionally starting with a supplied prefix and ending with a supplied suffix.
         StringJoiner joiner = new StringJoiner("<br>");
         result.getFieldErrors().forEach(
                 fe -> {

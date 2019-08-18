@@ -4,17 +4,23 @@ import org.hibernate.Hibernate;
 import ru.javawebinar.topjava.HasId;
 
 import javax.persistence.*;
-
+//can be mapped in the same way as an entity except that the
+// mappings will apply only to its subclasses since no table exists for the mapped superclass itself.
 @MappedSuperclass
 // http://stackoverflow.com/questions/594597/hibernate-annotations-which-is-better-field-or-property-access
+//you must specify the default behaviour for the whole class.
+// And that's why you need to have AccessType.FIELD on the class level
 @Access(AccessType.FIELD)
 //@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public abstract class AbstractBaseEntity implements HasId {
-    public static final int START_SEQ = 100000;
+    public static final int START_SEQ = 100000; //db start
 
     @Id
+    //it automatically assigns a value to numeric identity fields/properties of an entity
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
     //    @Column(name = "id", unique = true, nullable = false, columnDefinition = "integer default nextval('global_seq')")
+
+    //configure the way of increment of the specified column(field)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
 
 //  See https://hibernate.atlassian.net/browse/HHH-3718 and https://hibernate.atlassian.net/browse/HHH-12034

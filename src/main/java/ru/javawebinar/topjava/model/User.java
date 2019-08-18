@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 import java.util.*;
 
 import static ru.javawebinar.topjava.util.UserUtil.DEFAULT_CALORIES_PER_DAY;
-
+//if it's unlikely two separate transaction threads could update the same object, you may use the nonstrict–read–write strategy
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
@@ -39,6 +39,8 @@ public class User extends AbstractNamedEntity {
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(min = 5, max = 100)
+
+    //during serialization, but not deserialization
     // https://stackoverflow.com/a/12505165/548473
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -55,6 +57,8 @@ public class User extends AbstractNamedEntity {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
+    //FetchType.EAGER: Eager fetch type fetches the data with master other datas.
+    //FetchType.LAZY: Lazy fetch type fetches the data whenever call getter method of the object.
     @ElementCollection(fetch = FetchType.EAGER)
 //    @Fetch(FetchMode.SUBSELECT)
     @BatchSize(size = 200)
@@ -65,6 +69,7 @@ public class User extends AbstractNamedEntity {
     private int caloriesPerDay = DEFAULT_CALORIES_PER_DAY;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    //The DESC command is used to sort the data returned in descending order.
     @OrderBy("dateTime DESC")
 //    @JsonIgnore
     protected List<Meal> meals;
